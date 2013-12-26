@@ -37,11 +37,11 @@ aggregate <- function(namelist) {
 	# get statistics
 	for(i in seq(namelist$name)) {
 		split = strsplit(namelist[i,1], '')[[1]]
-		# increment frequencyf of first letter
+		# increment frequency of first letter
 		ngram$gram[[split[1]]] <- ngram$gram[[split[1]]] + 1
+		# increment frequency of letter based on previous unigram
+		ngram[[split[1]]]$gram[[split[2]]] <- ngram[[split[1]]]$gram[[split[2]]] + 1
 		for(j in 2:length(split)) {
-			# increment frequency of letter based on previous unigram
-			ngram[[split[j - 1]]]$gram[[split[j]]] <- ngram[[split[j-1]]]$gram[[split[j]]] + 1
 			if(j > 2) {
 				ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] + 1
 			}

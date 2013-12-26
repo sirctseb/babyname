@@ -3,40 +3,28 @@ consonants <- c('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t',
 
 learn <- function() {
 	res <- list()
+	# create unigram structure
+	letterlist <- sample(0,26,rep=TRUE)
+	names(letterlist) <- letters
+	res$unigram <- list()
+	res$unigram[['_']] <- letterlist
+	for(l in letters) {
+		res$unigram[[l]] <- letterlist
+	}
 	# get name list
 	namelist <- read.table('names/yob2012.txt', sep=',', header=FALSE)
 	names(namelist) <- c('name', 'gender', 'count')
-	namelist$name <- as.character(namelist$name)
-	numnames <- nrow(namelist)
+	namelist$name <- tolower(as.character(namelist$name))
 	# get statistics
-	vowelfirst <- nrow(subset(namelist, tolower(substr(name,1,1)) %in% vowels))
-	nonTrailingC <- 0;
-	nonTrailingV <- 0;
-	vAfterC <- 0;
-	cAfterV <- 0;
-	for(i in seq(numnames)) {
+	for(i in seq(namelist$name)) {
 		split = strsplit(namelist[i,1], '')[[1]]
-		for(j in seq(split)) {
-			if(j < length(split)) {
-				if(split[[j]] %in% vowels) {
-					nonTrailingV <- nonTrailingV + 1
-					if(split[[j + 1]] %in% consonants) {
-						cAfterV <- cAfterV + 1
-					}
-				} else {
-					nonTrailingC <- nonTrailingC + 1
-					if(split[[j + 1]] %in% vowels) {
-						vAfterC <- vAfterC + 1
-					}
-				}
-			}
+		# increment frequencyf of first letter
+		res$unigram[['_']][[split[1]]] <- res$unigram[['_']][[split[1]]] + 1
+		for(j in 2:length(split)) {
+			# increment frequency of letter based on previous unigram
+			res$unigram[[split[j - 1]]][[split[j]]] <- res$unigram[[split[j-1]]][[split[j]]] + 1
 		}
 	}
-	vAfterC <- vAfterC / nonTrailingC
-	cAfterV <- cAfterV / nonTrailingV
-	res$vAfterC <- vAfterC
-	res$cAfterV <- cAfterV
-	res$vowelFirst <- vowelfirst
 	res
 }
 
@@ -52,33 +40,12 @@ onename <- function(stats, len = FALSE) {
 		# todo magic numbers to define range of name lengths
 		len <- sample(4:8, 1)
 	}
-	# generate first letter based on vowel/non-vowel first letter frequence
-	if(runif(1) < stats$vowelFirst) {
-		name <- sample(vowels, 1)
-	} else {
-		name <- sample(consonants, 1)
-	}
+	# generate first letter based on frequency
+	name <- sample(letters, 1, prob = stats$unigram[['_']])
 	len <- len - 1
 	# append letters until len
 	while(len > 0) {
-		if(tail(name, 1) %in% vowels) {
-			if(runif(1) < stats$cAfterV) {
-				nextType <- 'c'
-			} else {
-				nextType <- 'v'
-			}
-		} else {
-			if(runif(1) < stats$vAfterC) {
-				nextType <- 'v'
-			} else {
-				nextType <- 'c'
-			}
-		}
-		if(nextType == 'c') {
-			name <- append(name, sample(consonants,1))
-		} else {
-			name <- append(name, sample(vowels, 1))
-		}
+		name <- append(name, sample(letters, 1, prob = stats$unigram[[tail(name, 1)]]))
 		len <- len - 1
 	}
 	paste(name, collapse = '')

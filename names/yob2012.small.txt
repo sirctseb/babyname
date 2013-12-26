@@ -1,0 +1,10 @@
+Sophia,F,22158
+Emma,F,20791
+Isabella,F,18931
+Olivia,F,17147
+Ava,F,15418
+Emily,F,13550
+Abigail,F,12583
+Mia,F,11940
+Madison,F,11319
+Elizabeth,F,9596

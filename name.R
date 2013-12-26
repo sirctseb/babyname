@@ -3,9 +3,6 @@ consonants <- c('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t',
 
 learn <- function() {
 	res <- list()
-	# create unigram structure
-	letterlist <- sample(0,26,rep=TRUE)
-	names(letterlist) <- letters
 	# get name list
 	namelist <- read.table('names/yob2012.txt', sep=',', header=FALSE)
 	names(namelist) <- c('name', 'gender', 'count')
@@ -22,6 +19,8 @@ learn <- function() {
 }
 aggregate <- function(namelist) {
 	# initialize unigram list
+	letterlist <- sample(0,26,rep=TRUE)
+	names(letterlist) <- letters
 	unigram <- list()
 	unigram[['_']] <- letterlist
 	for(l in letters) {

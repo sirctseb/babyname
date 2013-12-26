@@ -12,8 +12,12 @@ learn <- function() {
 	res$ngram.f <- aggregate(namelist.f)
 	res$ngram.m <- aggregate(namelist.m)
 	res$ngram <- list()
+	res$ngram$gram <- res$ngram.m$gram + res$ngram.f$gram
 	for(l in letters) {
-		res$ngram$gram[[l]] <- res$ngram.m$gram[[l]] + res$ngram.f$gram[[l]]
+		res$ngram[[l]]$gram <- res$ngram.m[[l]]$gram + res$ngram.f[[l]]$gram
+		for(d in letters) {
+			res$ngram[[l]][[d]]$gram <- res$ngram.m[[l]][[d]]$gram + res$ngram.f[[l]][[d]]$gram
+		}
 	}
 	res
 }
@@ -49,11 +53,11 @@ aggregate <- function(namelist) {
 name <- function(stats, len = FALSE, count = 1, gender = 'both') {
 	if(gender == 'both') {
 		# TODO combine data
-		un <- stats$unigram
+		un <- stats$ngram
 	} else if(head(gender,1) == 'm') {
-		un <- stats$unigram.m
+		un <- stats$ngram.m
 	} else {
-		un <- stats$unigram.f
+		un <- stats$ngram.f
 	}
 	names <- c()
 	for(i in seq(count)) {
@@ -67,11 +71,15 @@ onename <- function(ngram, len = FALSE) {
 		len <- sample(4:8, 1)
 	}
 	# generate first letter based on frequency
-	name <- sample(letters, 1, prob = stats$ngram$gram)
+	name <- sample(letters, 1, prob = ngram$gram)
 	len <- len - 1
-	# append letters until len
+	# generate second letter based on previous unigram
+	# TODO train these only on first letter unigrams?
+	name <- append(name, sample(letters, 1, prob = ngram[[tail(name, 1)]]$gram))
+	len <- len - 1
+	# generate remaining letters based on previous bigrams
 	while(len > 0) {
-		name <- append(name, sample(letters, 1, prob = stats$ngram[[tail(name, 1)]]$gram))
+		name <- append(name, sample(letters, 1, prob = ngram[[head(tail(name, 2), 1)]][[tail(name, 1)]]$gram))
 		len <- len - 1
 	}
 	paste(name, collapse = '')

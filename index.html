@@ -9,22 +9,12 @@
 </head>
 <body>
   <h1>Baby name generator</h1>
-  <div id='sex_selection'>
-    Sex:
-    <div>
-      <label for='sex_female'>Female: </label><input type='radio' name='sex' value='f' id='sex_female' checked=checked>
-      <label for='sex_male'>Male: </label><input type='radio' name='sex' value='m' id='sex_male'>
-      <label for='sex_neutral'>Neutral: </label><input type='radio' name='sex' value='n' id='sex_neutral'>
-    </div>
-  </div>
-  <div id='length_selection'>
-    <div>Length:
-      <div>
-        <label for='length_range_min'>Minimum: </label><input type='number' value='4' min='2' id='length_range_min'>
-        <label for='length_range_max'>Maximum: </label><input type='number' value='4' min='2' id='length_range_max'>
-      </div>
-    </div>
-  </div>
+  <label for='sex_female'>Female: </label><input type='radio' name='sex' value='f' id='sex_female' checked=checked>
+  <label for='sex_male'>Male: </label><input type='radio' name='sex' value='m' id='sex_male'>
+  <label for='sex_neutral'>Neutral: </label><input type='radio' name='sex' value='n' id='sex_neutral'>
+  <span> | </span>
+  <label for='length_range_min'>Minimum length: </label><input type='number' value='4' min='2' id='length_range_min'>
+  <label for='length_range_max'>Maximum length: </label><input type='number' value='4' min='2' id='length_range_max'>
   <button id='create_name' onclick='onAddNameClick()';>Create name</button>
   <div id='name_output'>
   </div>

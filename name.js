@@ -1,10 +1,40 @@
 var letters = 'abcdefghijklmnopqrstuvwxyz';
+var onAddNameClick = function() {
+	addNameToList(makeNameFromUI());
+};
+var getRadioValue = function(name) {
+	var radios = document.getElementsByName(name);
+	if(radios.length == 0) throw 'No elements with name: ' + name;
+
+	for (var i = 0, length = radios.length; i < length; i++) {
+		if (radios[i].checked) {
+			return radios[i].value;
+		}
+	}
+	throw 'No radio button with name ' + name + ' are checked';
+};
+var makeNameFromUI = function() {
+	var sex = getRadioValue('sex');
+	var length_type = getRadioValue('length_type');
+	var length;
+	if(length_type === 'length_exact') {
+		length = parseInt(document.getElementById('length').value,10);
+	} else {
+		var length_min = parseInt(document.getElementById('length_range_min').value, 10);
+		var length_max = parseInt(document.getElementById('length_range_max').value, 10);
+		if(length_max < length_min) {
+			length_max = length_min;
+		}
+		length = getRandomInt(length_min, length_max);
+	}
+	return makeNames(stats, length, 1, sex);
+};
 var makeNames = function(stats, len, count, gender) {
 	if(count === undefined) count = 1;
 	var un = null;
-	if(gender === undefined) {
+	if(gender === 'n') {
 		un = stats.ngram;
-	} else if(gender[0] == 'm') {
+	} else if(gender[0] === 'm') {
 		un = stats.ngram_m;
 	} else {
 		un = stats.ngram_f;
@@ -17,7 +47,7 @@ var makeNames = function(stats, len, count, gender) {
 };
 // Returns a random integer between min and max
 var getRandomInt = function(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 // sample from data with probabilities specified by prob
 // prob neet not sum to 1 but must be non-negative values
@@ -55,4 +85,11 @@ var onename = function(ngram, len) {
 		len--;
 	}
 	return name;
+};
+var addNameToList = function(name) {
+	// create the dom element
+	var element = document.createElement('div');
+	// add text
+	element.appendChild(document.createTextNode(name));
+	document.getElementById('name_output').appendChild(element);
 };

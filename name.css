@@ -1,3 +1,7 @@
 h1 {
 	text-align: center;
 }
+#length_range_min,
+#length_range_max {
+	width: 30px;
+}

@@ -15,18 +15,13 @@ var getRadioValue = function(name) {
 };
 var makeNameFromUI = function() {
 	var sex = getRadioValue('sex');
-	var length_type = getRadioValue('length_type');
 	var length;
-	if(length_type === 'length_exact') {
-		length = parseInt(document.getElementById('length').value,10);
-	} else {
-		var length_min = parseInt(document.getElementById('length_range_min').value, 10);
-		var length_max = parseInt(document.getElementById('length_range_max').value, 10);
-		if(length_max < length_min) {
-			length_max = length_min;
-		}
-		length = getRandomInt(length_min, length_max);
+	var length_min = parseInt(document.getElementById('length_range_min').value, 10);
+	var length_max = parseInt(document.getElementById('length_range_max').value, 10);
+	if(length_max < length_min) {
+		length_max = length_min;
 	}
+	length = getRandomInt(length_min, length_max);
 	return makeNames(stats, length, 1, sex);
 };
 var makeNames = function(stats, len, count, gender) {

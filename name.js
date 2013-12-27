@@ -1,6 +1,14 @@
 var letters = 'abcdefghijklmnopqrstuvwxyz';
+var isScrolledToBottom = function(element) {
+	return element.scrollHeight - element.clientHeight == element.scrollTop;
+};
 var onAddNameClick = function() {
 	addNameToList(makeNameFromUI());
+};
+var onNameScroll = function() {
+	if(isScrolledToBottom(document.getElementById('name_output'))) {
+		addNameToList(makeNameFromUI());
+	}
 };
 var getRadioValue = function(name) {
 	var radios = document.getElementsByName(name);
@@ -46,6 +54,7 @@ var getRandomInt = function(min, max) {
 };
 // sample from data with probabilities specified by prob
 // prob neet not sum to 1 but must be non-negative values
+// TODO bug when all probabilities are 0
 var sample = function(data, prob) {
 	if(prob !== undefined && data.length != prob.length) {
 		throw "Data (" + data.length + ") and probability weights (" + prob.length + ") must be same length";

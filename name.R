@@ -1,3 +1,4 @@
+
 vowels <- c('a','e','i','o','u','y')
 consonants <- c('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','z')
 
@@ -83,4 +84,23 @@ onename <- function(ngram, len = FALSE) {
 		len <- len - 1
 	}
 	paste(name, collapse = '')
+}
+writeStats <- function(stats, file) {
+	stats$ngram_f <- vectorify(stats$ngram.f)
+	stats$ngram.f <- NULL
+	stats$ngram_m <- vectorify(stats$ngram.m)
+	stats$ngram.m <- NULL
+	stats$ngram <- vectorify(stats$ngram)
+	write(toJSON(stats), file)
+}
+vectorify <- function(ngram) {
+	# convert frequency lists to vectors and json
+	ngram$gram <- as.vector(ngram$gram)
+	for(l in letters) {
+		ngram[[l]]$gram <- as.vector(ngram[[l]]$gram)
+		for(d in letters) {
+			ngram[[l]][[d]]$gram <- as.vector(ngram[[l]][[d]]$gram)
+		}
+	}
+	ngram
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Baby Name Generator</title>
+  <script type='text/javascript' src='stats.js'></script>
+  <script type='text/javascript' src='name.js'></script>
+  <script type='text/javascript'>
+    window.onload = function(e) {
+      console.log(makeNames(stats, 5, 10, 'm'));
+      // test of sample
+      var d = [0,1,2,3];
+      var p = [0.1, 0, 0.8, 0.1];
+      var c = [0,0,0,0];
+      for(var i = 0; i < 1000; i++) {
+        c[sample(d, p)]++;
+      }
+    };
+  </script>
+</head>
+<body>
+</body>
+</html>

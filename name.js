@@ -5,10 +5,13 @@ var isScrolledToBottom = function(element) {
 var onAddNameClick = function() {
 	addNameToList(makeNameFromUI());
 };
-var onNameScroll = function() {
-	if(isScrolledToBottom(document.getElementById('name_output'))) {
+var addNamesWhileScrolled = function() {
+	while(isScrolledToBottom(document.getElementById('name_output'))) {
 		addNameToList(makeNameFromUI());
 	}
+};
+var onNameScroll = function() {
+	addNamesWhileScrolled();
 };
 var getRadioValue = function(name) {
 	var radios = document.getElementsByName(name);

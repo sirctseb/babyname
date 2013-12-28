@@ -106,7 +106,7 @@ var onename = function(ngram, len) {
 		name = name.concat(sample(letters, ngram[name[name.length - 2]][name[name.length - 1]].gram))
 		len--;
 	}
-	return name;
+	return name[0].toUpperCase() + name.substr(1);
 };
 var addNameToList = function(name, sex) {
 	// create the dom element

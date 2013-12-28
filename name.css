@@ -1,3 +1,6 @@
+body {
+	font-family: Perpetua, Baskerville, "Big Caslon", "Palatino Linotype", Palatino, "URW Palladio L", "Nimbus Roman No9 L", serif;
+}
 h1 {
 	text-align: center;
 }
@@ -21,6 +24,9 @@ h1 {
 	height: 200px;
 	overflow-y: scroll;
 	border: 1px solid black;
+}
+#content {
+	font-size: 1.2em;
 }
 .name {
 	padding: 2px;

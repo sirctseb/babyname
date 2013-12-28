@@ -1,4 +1,21 @@
 var letters = 'abcdefghijklmnopqrstuvwxyz';
+var onChangeMin = function() {
+	var min = getInputInt(document.getElementById('length_range_min'));
+	var max = getInputInt(document.getElementById('length_range_max'));
+	if(max < min) {
+		document.getElementById('length_range_max').value = min;
+	}
+};
+var onChangeMax = function() {
+	var min = getInputInt(document.getElementById('length_range_min'));
+	var max = getInputInt(document.getElementById('length_range_max'));
+	if(max < min) {
+		document.getElementById('length_range_min').value = max;
+	}
+};
+var getInputInt = function(element) {
+	return parseInt(element.value, 10);
+};
 var isScrolledToBottom = function(element) {
 	return element.scrollHeight - element.clientHeight == element.scrollTop;
 };

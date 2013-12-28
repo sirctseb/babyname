@@ -17,8 +17,8 @@
     <label for='sex_male'>Male: </label><input type='radio' name='sex' value='m' id='sex_male'>
     <label for='sex_neutral'>Neutral: </label><input type='radio' name='sex' value='n' id='sex_neutral'>
     <span class='settings_divider'>|</span>
-    <label for='length_range_min'>Min: </label><input type='number' value='4' min='2' id='length_range_min'>
-    <label for='length_range_max'>Max: </label><input type='number' value='4' min='2' id='length_range_max'>
+    <label for='length_range_min'>Min: </label><input type='number' value='4' min='2' id='length_range_min' onchange='onChangeMin()'>
+    <label for='length_range_max'>Max: </label><input type='number' value='4' min='2' id='length_range_max' onchange='onChangeMax()'>
   </div>
   <div id='name_output' onscroll='onNameScroll()'>
   </div>

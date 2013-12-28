@@ -2,9 +2,6 @@ var letters = 'abcdefghijklmnopqrstuvwxyz';
 var isScrolledToBottom = function(element) {
 	return element.scrollHeight - element.clientHeight == element.scrollTop;
 };
-var onAddNameClick = function() {
-	addNameToList(makeNameFromUI());
-};
 var addNamesWhileScrolled = function() {
 	while(isScrolledToBottom(document.getElementById('name_output'))) {
 		addNameToList(makeNameFromUI());

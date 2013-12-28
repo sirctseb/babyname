@@ -8,6 +8,12 @@ h1 {
 #settings {
 	text-align: center;
 }
+#settings input[type=radio] {
+	margin-right: 10px;
+}
+.settings_divider {
+	margin-right: 10px;
+}
 #name_output {
 	margin-left: auto;
 	margin-right: auto;

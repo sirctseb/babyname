@@ -22,3 +22,12 @@ h1 {
 	overflow-y: scroll;
 	border: 1px solid black;
 }
+.name {
+	padding: 2px;
+}
+.name.m {
+	background-color: #EBFBFF;
+}
+.name.f {
+	background-color: #FFEBFC;
+}

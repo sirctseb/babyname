@@ -4,7 +4,8 @@ var isScrolledToBottom = function(element) {
 };
 var addNamesWhileScrolled = function() {
 	while(isScrolledToBottom(document.getElementById('name_output'))) {
-		addNameToList(makeNameFromUI());
+		var names = makeNameFromUI();
+		addNameToList(names.names[0], names.sex);
 	}
 };
 var onNameScroll = function() {
@@ -14,8 +15,8 @@ var getRadioValue = function(name) {
 	var radios = document.getElementsByName(name);
 	if(radios.length == 0) throw 'No elements with name: ' + name;
 
-	for (var i = 0, length = radios.length; i < length; i++) {
-		if (radios[i].checked) {
+	for(var i = 0, length = radios.length; i < length; i++) {
+		if(radios[i].checked) {
 			return radios[i].value;
 		}
 	}
@@ -46,7 +47,7 @@ var makeNames = function(stats, len, count, gender) {
 	for(var i = 0; i < count; i++) {
 		names.push(onename(un, len))
 	}
-	return names;
+	return {sex: gender, names: names};
 };
 // Returns a random integer between min and max
 var getRandomInt = function(min, max) {
@@ -90,10 +91,12 @@ var onename = function(ngram, len) {
 	}
 	return name;
 };
-var addNameToList = function(name) {
+var addNameToList = function(name, sex) {
 	// create the dom element
 	var element = document.createElement('div');
 	// add text
 	element.appendChild(document.createTextNode(name));
+	// set sex class
+	element.className = sex + " name";
 	document.getElementById('name_output').appendChild(element);
 };

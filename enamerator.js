@@ -37,15 +37,15 @@ enamerator.decompressFreq = function(freq) {
 };
 enamerator.letters = 'abcdefghijklmnopqrstuvwxyz';
 enamerator.onChangeMin = function() {
-	var min = getInputInt(document.getElementById('length_range_min'));
-	var max = getInputInt(document.getElementById('length_range_max'));
+	var min = enamerator.getInputInt(document.getElementById('length_range_min'));
+	var max = enamerator.getInputInt(document.getElementById('length_range_max'));
 	if(max < min) {
 		document.getElementById('length_range_max').value = min;
 	}
 };
 enamerator.onChangeMax = function() {
-	var min = getInputInt(document.getElementById('length_range_min'));
-	var max = getInputInt(document.getElementById('length_range_max'));
+	var min = enamerator.getInputInt(document.getElementById('length_range_min'));
+	var max = enamerator.getInputInt(document.getElementById('length_range_max'));
 	if(max < min) {
 		document.getElementById('length_range_min').value = max;
 	}

@@ -85,21 +85,32 @@ onename <- function(ngram, len = FALSE) {
 	}
 	paste(name, collapse = '')
 }
-writeStats <- function(stats, file) {
-	stats$ngram_f <- vectorify(stats$ngram.f)
+writeStats <- function(stats, file, zeros = 13) {
+	stats$f <- vectorify(stats$ngram.f, zeros)
 	stats$ngram.f <- NULL
-	stats$ngram_m <- vectorify(stats$ngram.m)
+	stats$m <- vectorify(stats$ngram.m, zeros)
 	stats$ngram.m <- NULL
-	stats$ngram <- vectorify(stats$ngram)
+	stats$n <- vectorify(stats$ngram, zeros)
+	stats$ngram <- NULL
 	write(toJSON(stats), file)
 }
-vectorify <- function(ngram) {
+vectorify <- function(ngram, zeros) {
 	# convert frequency lists to vectors and json
-	ngram$gram <- as.vector(ngram$gram)
+	ngram$F <- as.vector(ngram$gram)
+	ngram$gram <- NULL
 	for(l in letters) {
-		ngram[[l]]$gram <- as.vector(ngram[[l]]$gram)
+		ngram[[l]]$F <- as.vector(ngram[[l]]$gram)
+		ngram[[l]]$gram <- NULL
 		for(d in letters) {
-			ngram[[l]][[d]]$gram <- as.vector(ngram[[l]][[d]]$gram)
+			# if there are enough zeros, store a map of letters and their non-zero frequencies instead of the array
+			t <- table(ngram[[l]][[d]]$gram)
+			if(!'0' %in% names(t) || t['0'] < zeros) {
+				ngram[[l]][[d]]$F <- as.vector(ngram[[l]][[d]]$gram)
+			} else {
+				# remove zeros from list
+				ngram[[l]][[d]]$F <- ngram[[l]][[d]]$gram[-which(ngram[[l]][[d]]$gram == 0)]
+			}
+			ngram[[l]][[d]]$gram <- NULL
 		}
 	}
 	ngram

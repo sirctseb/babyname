@@ -18,6 +18,7 @@ learn <- function() {
 		res$ngram[[l]]$gram <- res$ngram.m[[l]]$gram + res$ngram.f[[l]]$gram
 		for(d in letters) {
 			res$ngram[[l]][[d]]$gram <- res$ngram.m[[l]][[d]]$gram + res$ngram.f[[l]][[d]]$gram
+			res$ngram[[l]][[d]]$last <- res$ngram.m[[l]][[d]]$last + res$ngram.f[[l]][[d]]$last
 		}
 	}
 	res
@@ -33,6 +34,7 @@ aggregate <- function(namelist) {
 		ngram[[l]]$gram <- letterlist
 		for(d in letters) {
 			ngram[[l]][[d]]$gram <- letterlist
+			ngram[[l]][[d]]$last <- letterlist
 		}
 	}
 	# get statistics
@@ -45,6 +47,9 @@ aggregate <- function(namelist) {
 		for(j in 2:length(split)) {
 			if(j > 2) {
 				ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] + 1
+				if(j == length(split) - 1) {
+					ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] + 1
+				}
 			}
 		}
 	}
@@ -102,16 +107,22 @@ vectorify <- function(ngram, zeros) {
 		ngram[[l]]$F <- as.vector(ngram[[l]]$gram)
 		ngram[[l]]$gram <- NULL
 		for(d in letters) {
-			# if there are enough zeros, store a map of letters and their non-zero frequencies instead of the array
-			t <- table(ngram[[l]][[d]]$gram)
-			if(!'0' %in% names(t) || t['0'] < zeros) {
-				ngram[[l]][[d]]$F <- as.vector(ngram[[l]][[d]]$gram)
-			} else {
-				# remove zeros from list
-				ngram[[l]][[d]]$F <- ngram[[l]][[d]]$gram[-which(ngram[[l]][[d]]$gram == 0)]
-			}
+			ngram[[l]][[d]]$F <- reduceFreq(ngram[[l]][[d]]$gram,zeros)
 			ngram[[l]][[d]]$gram <- NULL
+			ngram[[l]][[d]]$L <- reduceFreq(ngram[[l]][[d]]$last,zeros)
+			ngram[[l]][[d]]$last <- NULL
 		}
 	}
 	ngram
+}
+reduceFreq <- function(freq,zeros) {
+	# if there are enough zeros, store a map of letters and their non-zero frequencies instead of the array
+	t <- table(freq)
+	if(!'0' %in% names(t) || t['0'] < zeros) {
+		res <- as.vector(freq)
+	} else {
+		# remove zeros from list
+		res <- freq[-which(freq == 0)]
+	}
+	res
 }

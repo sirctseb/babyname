@@ -4,7 +4,7 @@ enamerator.setup = function() {
 	document.getElementById('length_range_min').onchange = enamerator.onChangeMin;
 	document.getElementById('length_range_max').onchange = enamerator.onChangeMax;
 	document.getElementById('name_output').onscroll = enamerator.onNameScroll;
-	document.getElementById('')
+	enamerator.constrainPrefixLength();
 	enamerator.decompress(enamerator.stats);
 	enamerator.addNamesWhileScrolled();
 };
@@ -36,11 +36,16 @@ enamerator.decompressFreq = function(freq) {
 	return freq;
 };
 enamerator.letters = 'abcdefghijklmnopqrstuvwxyz';
+enamerator.constrainPrefixLength = function() {
+	document.getElementById('prefix').maxLength = enamerator.getInputInt(document.getElementById('length_range_max'));
+};
 enamerator.onChangeMin = function() {
 	var min = enamerator.getInputInt(document.getElementById('length_range_min'));
 	var max = enamerator.getInputInt(document.getElementById('length_range_max'));
 	if(max < min) {
 		document.getElementById('length_range_max').value = min;
+		document.getElementById('prefix').maxLength = max;
+		enamerator.constrainPrefixLength();
 	}
 };
 enamerator.onChangeMax = function() {
@@ -49,6 +54,7 @@ enamerator.onChangeMax = function() {
 	if(max < min) {
 		document.getElementById('length_range_min').value = max;
 	}
+	enamerator.constrainPrefixLength();
 };
 enamerator.getInputInt = function(element) {
 	return parseInt(element.value, 10);

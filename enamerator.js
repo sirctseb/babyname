@@ -85,9 +85,10 @@ enamerator.makeNameFromUI = function() {
 		length_max = length_min;
 	}
 	length = enamerator.getRandomInt(length_min, length_max);
-	return enamerator.makeNames(enamerator.stats, length, 1, sex);
+	var prefix = document.getElementById('prefix').value;
+	return enamerator.makeNames(enamerator.stats, length, 1, sex, prefix);
 };
-enamerator.makeNames = function(stats, len, count, gender) {
+enamerator.makeNames = function(stats, len, count, gender, prefix) {
 	if(count === undefined) count = 1;
 	var un = null;
 	if(gender[0] === 'n') {
@@ -99,7 +100,7 @@ enamerator.makeNames = function(stats, len, count, gender) {
 	}
 	var names = [];
 	for(var i = 0; i < count; i++) {
-		names.push(enamerator.onename(un, len))
+		names.push(enamerator.onename(un, len, prefix))
 	}
 	return {sex: gender, names: names};
 };
@@ -133,25 +134,38 @@ enamerator.sample = function(data, prob) {
 	}
 	return data[index];
 };
-enamerator.onename = function(ngram, len) {
-	if(len === undefined) {
+enamerator.onename = function(ngram, len, prefix) {
+	// TODO error if prefix.length > len
+	var remaining = len;
+	if(remaining === undefined) {
 		// todo magic numbers to define range of name lengths
-		len = enamerator.getRandomInt(4,8);
+		remaining = enamerator.getRandomInt(4,8);
+	}
+	var name;
+	if(prefix != undefined) {
+		name = prefix;
+		remaining = remaining - prefix.length;
 	}
 	// generate first letter based on frequency
-	var name = enamerator.sample(enamerator.letters, ngram['F']);
-	len--;
+	if(remaining == len) {
+		name = enamerator.sample(enamerator.letters, ngram['F']);
+		remaining--;
+	}
 	// generate second letter based on previous unigram
-	name = name.concat(enamerator.sample(enamerator.letters, ngram[name[name.length - 1]]['F']));
-	len--;
+	if(remaining == len - 1) {
+		name = name.concat(enamerator.sample(enamerator.letters, ngram[name[name.length - 1]]['F']));
+		remaining--;
+	}
 	// generate remaining letters based on previous bigrams, except for last
-	while(len > 1) {
+	while(remaining > 1) {
 		name = name.concat(enamerator.sample(enamerator.letters, ngram[name[name.length - 2]][name[name.length - 1]]['F']))
-		len--;
+		remaining--;
 	}
 	// add last letter based on last letter frequencies
-	name = name.concat(enamerator.sample(enamerator.letters, ngram[name[name.length - 2]][name[name.length - 1]]['L']))
-	len--;
+	if(remaining > 0) {
+		name = name.concat(enamerator.sample(enamerator.letters, ngram[name[name.length - 2]][name[name.length - 1]]['L']))
+		remaining--;
+	}
 	return name[0].toUpperCase() + name.substr(1);
 };
 enamerator.addNameToList = function(name, sex) {

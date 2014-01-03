@@ -102,14 +102,20 @@ enamerator.makeNames = function(stats, len, count, gender) {
 enamerator.getRandomInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 };
+enamerator.sum = function(arr) {
+	var sum = 0;
+	for(var i in arr) {
+		sum = sum + arr[i];
+	}
+	return sum;
+};
 // sample from data with probabilities specified by prob
 // prob neet not sum to 1 but must be non-negative values
-// TODO bug when all probabilities are 0
 enamerator.sample = function(data, prob) {
 	if(prob !== undefined && data.length != prob.length) {
 		throw 'Data (' + data.length + ') and probability weights (' + prob.length + ') must be same length';
 	}
-	if(prob === undefined) {
+	if(prob === undefined || enamerator.sum(prob) == 0) {
 		return data[enamerator.getRandomInt(0, data.length)];
 	}
 	var cum = [prob[0]];

@@ -141,6 +141,7 @@ enamerator.sample = function(data, prob) {
 	return data[index];
 };
 enamerator.onename = function(ngram, len, prefix) {
+	prefix = prefix.toLowerCase();
 	// TODO error if prefix.length > len
 	var remaining = len;
 	if(remaining === undefined) {

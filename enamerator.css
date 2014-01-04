@@ -14,8 +14,12 @@ h1 {
 #settings input[type=radio] {
 	margin-right: 10px;
 }
+input[type='radio']+.settings_divider {
+	margin-left: 0px;
+}
 .settings_divider {
 	margin-right: 10px;
+	margin-left: 10px;
 }
 #name_output {
 	margin-top: 10px;

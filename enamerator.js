@@ -17,8 +17,8 @@ enamerator.decompress = function(stats) {
 			if(l != 'F') {
 				for(var m in stats[genders[g]][l]) {
 					if(m != 'F') {
-						stats[genders[g]][l][m].F = enamerator.decompressFreq(stats[genders[g]][l][m].F);
-						stats[genders[g]][l][m].L = enamerator.decompressFreq(stats[genders[g]][l][m].L);
+						stats[genders[g]][l][m]['F'] = enamerator.decompressFreq(stats[genders[g]][l][m]['F']);
+						stats[genders[g]][l][m]['L'] = enamerator.decompressFreq(stats[genders[g]][l][m]['L']);
 					}
 				}
 			}

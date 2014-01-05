@@ -59,7 +59,7 @@ enamerator.getInputInt = function(element) {
 	return parseInt(element.value, 10);
 };
 enamerator.isScrolledToBottom = function(element) {
-	return element.scrollHeight - element.clientHeight == element.scrollTop;
+	return element.scrollTop + 10 >= element.scrollHeight - element.clientHeight;
 };
 enamerator.addNamesWhileScrolled = function() {
 	while(enamerator.isScrolledToBottom(document.getElementById('name_output'))) {

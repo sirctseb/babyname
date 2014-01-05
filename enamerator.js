@@ -9,7 +9,6 @@ enamerator.setup = function() {
 	enamerator.addNamesWhileScrolled();
 };
 enamerator.decompress = function(stats) {
-	var b = false;
 	// decompress stats
 	var genders = ['m', 'f', 'n'];
 	for(var g in genders) {

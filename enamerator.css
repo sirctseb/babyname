@@ -128,6 +128,7 @@ input[type='radio']+.settings_divider {
 	}
 	#name_output {
 		width: 100%;
+		height: 10em;
 	}
 	#share {
 		display: none;

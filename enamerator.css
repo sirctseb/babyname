@@ -31,6 +31,12 @@ input[type='radio']+.settings_divider {
 	margin-right: 10px;
 	margin-left: 10px;
 }
+#center {
+	position:relative;
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
 #name_output {
 	margin-top: 10px;
 	margin-left: auto;
@@ -40,6 +46,13 @@ input[type='radio']+.settings_divider {
 	height: 400px;
 	overflow-y: scroll;
 	border: 1px solid black;
+}
+#share {
+	margin-left: 20px;
+	position:absolute;
+	left: 100%;
+	top: 0;
+	text-align: left;
 }
 #content {
 	font-size: 1.2em;
@@ -52,4 +65,11 @@ input[type='radio']+.settings_divider {
 }
 .name.f {
 	background-color: #FFEBFC;
+}
+/* custom spacing to normalize share buttons */
+#fb-share {
+	margin-top: -2px;
+}
+#pinterest-share {
+	margin-top: 6px;
 }

@@ -10,12 +10,15 @@ h2 {
 	margin-top: 0px;
 }
 #logo {
-	width: 100px;
 	margin-bottom: -20px;
 	margin-right: 10px;
+	width: 100px;
 }
-#length_range_min,
-#length_range_max {
+#header-text {
+	display: inline-block;
+}
+
+.setting input[type='number'] {
 	width: 30px;
 }
 #settings {
@@ -23,6 +26,15 @@ h2 {
 }
 #settings input[type=radio] {
 	margin-right: 10px;
+}
+.setting {
+	display: inline-block;
+}
+.radio-setting {
+	display: inline-block;
+}
+.number-setting {
+	display: inline-block;
 }
 input[type='radio']+.settings_divider {
 	margin-left: 0px;
@@ -72,4 +84,52 @@ input[type='radio']+.settings_divider {
 }
 #pinterest-share {
 	margin-top: 6px;
+}
+
+@media (max-width: 980px) and (-webkit-min-device-pixel-ratio: 2), (max-width: 490px) {
+	#content {
+		font-size: 4em;
+	}
+	#logo {
+		width: 30%;
+		margin-right: 0px;
+	}
+	h1 {
+		font-size: 6em;
+		margin: 0;
+	}
+	h2 {
+		font-size: 4em;
+		margin: 0;
+	}
+	#header-text {
+		width: 69%;
+	}
+	.setting {
+		display: block;
+	}
+	.radio-setting input {
+		width: 4em;
+		height: 4em;
+	}
+	.setting input[type='number'] {
+		font-size: 1em;
+		width: 1.5em;
+	}
+	.settings_divider {
+		display: none;
+	}
+	.setting input[type='text'] {
+		font-size: 1em;
+		width: 90%;
+	}
+	#center {
+		width: 90%;
+	}
+	#name_output {
+		width: 100%;
+	}
+	#share {
+		display: none;
+	}
 }

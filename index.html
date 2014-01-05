@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html itemscope itemtype="http://schema.org/Article">
 <head>
   <meta charset='utf-8'>
+  <meta itemprop="name" content="Enamerator">
+  <meta itemprop="description" content="The never-ending baby name list">
+  <meta itemprop="image" content="http://enamerator.com/img/logo.png">
   <title>Enamerator - The never-ending baby name list</title>
   <!--<script type='text/javascript' src='enamerator.js'></script>-->
   <script type='text/javascript' src='enamerator.min.js'></script>
@@ -12,23 +15,37 @@
       window.enamerator.setup();
     };
   </script> 
-  <script type="text/javascript">var switchTo5x=true;</script>
-  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-  <script type="text/javascript">stLight.options({publisher: "06eef2c4-1f27-4777-87f8-0283d910696b", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 </head>
 <body>
-  <h1><img src='img/logo.png' alt='enamerator logo' id='logo'>Enamerator</h1>
-  <h2>The never-ending baby name list</h2>
+  <img src='img/logo.png' alt='enamerator logo' id='logo'>
+  <div id='header-text'><h1>Enamerator</h1>
+  <h2>The never-ending baby name list</h2></div>
   <div id='content'>
     <div id='settings'>
-      <label for='sex_female'>Female: </label><input type='radio' name='sex' value='f' id='sex_female' checked=checked>
-      <label for='sex_male'>Male: </label><input type='radio' name='sex' value='m' id='sex_male'>
-      <label for='sex_neutral'>Neutral: </label><input type='radio' name='sex' value='n' id='sex_neutral'>
+      <div class='setting'>
+        <div class='radio-setting'>
+          <label for='sex_female'>Female: </label><input type='radio' name='sex' value='f' id='sex_female' checked=checked>
+        </div>
+        <div class='radio-setting'>
+          <label for='sex_male'>Male: </label><input type='radio' name='sex' value='m' id='sex_male'>
+        </div>
+        <div class='radio-setting'>
+          <label for='sex_neutral'>Neutral: </label><input type='radio' name='sex' value='n' id='sex_neutral'>
+        </div>
+      </div>
       <span class='settings_divider'>|</span>
-      <label for='length_range_min'>Min: </label><input type='number' value='4' min='2' id='length_range_min'>
-      <label for='length_range_max'>Max: </label><input type='number' value='8' min='2' id='length_range_max'>
-      <span class='settings_divider'>|</span>
-      <input placeholder='Starts with' id='prefix'>
+      <div class='setting'>
+        <div class='number-setting'>
+          <label for='length_range_min'>Min: </label><input type='number' value='4' min='2' id='length_range_min'>
+        </div>
+        <div class='number-setting'>
+          <label for='length_range_max'>Max: </label><input type='number' value='8' min='2' id='length_range_max'>
+        </div>
+        <span class='settings_divider'>|</span>
+        <div class='setting'>
+          <input type='text' placeholder='Starts with' id='prefix'>
+        </div>
+      </div>
     </div>
     <div id='center'>
       <div id='name_output'></div>
@@ -52,7 +69,7 @@
           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=7630951414";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
       </div>
     </div>

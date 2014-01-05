@@ -2,6 +2,18 @@ body {
 	font-family: Perpetua, Baskerville, "Big Caslon", "Palatino Linotype", Palatino, "URW Palladio L", "Nimbus Roman No9 L", serif;
 	text-align: center;
 }
+h1 {
+	font-size: 4em;
+	margin-bottom: 0px;
+}
+h2 {
+	margin-top: 0px;
+}
+#logo {
+	width: 100px;
+	margin-bottom: -20px;
+	margin-right: 10px;
+}
 #length_range_min,
 #length_range_max {
 	width: 30px;

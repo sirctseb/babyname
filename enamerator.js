@@ -4,6 +4,20 @@ enamerator.setup = function() {
 	document.getElementById('length_range_min').onchange = enamerator.onChangeMin;
 	document.getElementById('length_range_max').onchange = enamerator.onChangeMax;
 	document.getElementById('name_output').onscroll = enamerator.onNameScroll;
+
+	var hashParams = enamerator.getHashParams();
+	var min = hashParams.min || 4;
+	var max = hashParams.max || 8;
+	var gender = hashParams.gender || 'f';
+	var prefix = hashParams.prefix || '';
+
+	document.getElementById('length_range_min').value = min;
+	enamerator.onChangeMin();
+	document.getElementById('length_range_max').value = max;
+	enamerator.onChangeMax();
+	enamerator.setRadioValue('sex', gender);
+	document.getElementById('prefix').value = prefix;
+
 	enamerator.constrainPrefixLength();
 	enamerator.decompress(enamerator.stats);
 	enamerator.addNamesWhileScrolled();

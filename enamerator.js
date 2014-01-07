@@ -94,6 +94,18 @@ enamerator.getRadioValue = function(name) {
 	}
 	throw 'No radio button with name ' + name + ' are checked';
 };
+enamerator.setRadioValue = function(name, value) {
+	var radios = document.getElementsByName(name);
+	if(radios.length == 0) throw 'No elements with name: ' + name;
+
+	for(var i = 0, length = radios.length; i < length; i++) {
+		if(radios[i].value === value) {
+			radios[i].checked = true;
+			return;
+		}
+	}
+	throw 'No radio button with name ' + name + ' are checked';
+}
 enamerator.makeNameFromUI = function() {
 	var sex = enamerator.getRadioValue('sex');
 	var length;

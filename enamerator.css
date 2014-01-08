@@ -9,6 +9,17 @@ h1 {
 h2 {
 	margin-top: 0px;
 }
+a.nostyle:link {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+
+a.nostyle:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
 #logo {
 	margin-bottom: -20px;
 	margin-right: 10px;

@@ -1,9 +1,9 @@
 var enamerator = {};
 enamerator.defaults = {
-	min: 4,
-	max: 8,
-	prefix: '',
-	gender: 'f'
+	'min': 4,
+	'max': 8,
+	'prefix': '',
+	'gender': 'f'
 };
 enamerator.setup = function() {
 	// setup ui handlers
@@ -21,10 +21,10 @@ enamerator.setup = function() {
 
 	// get settings from fragment or defaults
 	var hashParams = enamerator.getHashParams();
-	var min = hashParams.min || enamerator.defaults.min;
-	var max = hashParams.max || enamerator.defaults.max;
-	var gender = hashParams.gender || enamerator.defaults.gender;
-	var prefix = hashParams.prefix || enamerator.defaults.prefix;
+	var min = hashParams['min'] || enamerator.defaults['min'];
+	var max = hashParams['max'] || enamerator.defaults['max'];
+	var gender = hashParams['gender'] || enamerator.defaults['gender'];
+	var prefix = hashParams['prefix'] || enamerator.defaults['prefix'];
 
 	document.getElementById('length_range_min').value = min;
 	// only call handler if modified by has parameter so we don't
@@ -64,10 +64,10 @@ enamerator.checkPrefixValidity = function() {
 
 enamerator.getCurrentSettings = function() {
 	return {
-		min: enamerator.getInputInt(document.getElementById('length_range_min')),
-		max: enamerator.getInputInt(document.getElementById('length_range_max')),
-		gender: enamerator.getRadioValue('sex'),
-		prefix: document.getElementById('prefix').value
+		'min': enamerator.getInputInt(document.getElementById('length_range_min')),
+		'max': enamerator.getInputInt(document.getElementById('length_range_max')),
+		'gender': enamerator.getRadioValue('sex'),
+		'prefix': document.getElementById('prefix').value
 	};
 };
 

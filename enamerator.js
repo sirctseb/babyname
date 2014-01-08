@@ -1,15 +1,29 @@
 var enamerator = {};
+enamerator.defaults = {
+	min: 4,
+	max: 8,
+	prefix: '',
+	gender: 'f'
+};
 enamerator.setup = function() {
 	// setup ui handlers
 	document.getElementById('length_range_min').onchange = enamerator.onChangeMin;
 	document.getElementById('length_range_max').onchange = enamerator.onChangeMax;
+	// add click handlers to gender radios to update settings link
+	var gender_radios = document.getElementsByName('sex');
+	for(var i in gender_radios) {
+		gender_radios[i].onclick = enamerator.setSettingsLink;
+	}
+	// add change handler to prefix to update settings link
+	document.getElementById('prefix').onchange = enamerator.setSettingsLink;
 	document.getElementById('name_output').onscroll = enamerator.onNameScroll;
 
+	// get settings from fragment or defaults
 	var hashParams = enamerator.getHashParams();
-	var min = hashParams.min || 4;
-	var max = hashParams.max || 8;
-	var gender = hashParams.gender || 'f';
-	var prefix = hashParams.prefix || '';
+	var min = hashParams.min || enamerator.defaults.min;
+	var max = hashParams.max || enamerator.defaults.max;
+	var gender = hashParams.gender || enamerator.defaults.gender;
+	var prefix = hashParams.prefix || enamerator.defaults.prefix;
 
 	document.getElementById('length_range_min').value = min;
 	enamerator.onChangeMin();
@@ -21,7 +35,30 @@ enamerator.setup = function() {
 	enamerator.constrainPrefixLength();
 	enamerator.decompress(enamerator.stats);
 	enamerator.addNamesWhileScrolled();
+	enamerator.setSettingsLink();
 };
+
+enamerator.getCurrentSettings = function() {
+	return {
+		min: enamerator.getInputInt(document.getElementById('length_range_min')),
+		max: enamerator.getInputInt(document.getElementById('length_range_max')),
+		gender: enamerator.getRadioValue('sex'),
+		prefix: document.getElementById('prefix').value
+	};
+};
+
+enamerator.setSettingsLink = function() {
+	var settings = enamerator.getCurrentSettings();
+	var sarray = [];
+	for(var setting in settings) {
+		sarray.push(setting + '=' + settings[setting]);
+	}
+	var domain = 'http://enamerator.com';
+	var linkurl = domain + '#' + sarray.join('&');
+	document.getElementById('settings-link').href = linkurl;
+	window.location.hash = sarray.join('&');
+};
+
 enamerator.getHashParams = function() {
     var hashParams = {};
     var e,
@@ -73,6 +110,7 @@ enamerator.onChangeMin = function() {
 		document.getElementById('prefix').maxLength = max;
 		enamerator.constrainPrefixLength();
 	}
+	enamerator.setSettingsLink();
 };
 enamerator.onChangeMax = function() {
 	var min = enamerator.getInputInt(document.getElementById('length_range_min'));
@@ -81,6 +119,7 @@ enamerator.onChangeMax = function() {
 		document.getElementById('length_range_min').value = max;
 	}
 	enamerator.constrainPrefixLength();
+	enamerator.setSettingsLink();
 };
 enamerator.getInputInt = function(element) {
 	return parseInt(element.value, 10);

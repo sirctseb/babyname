@@ -15,7 +15,8 @@ enamerator.setup = function() {
 		gender_radios[i].onclick = enamerator.setSettingsLink;
 	}
 	// add change handler to prefix to update settings link
-	document.getElementById('prefix').onchange = enamerator.setSettingsLink;
+	document.getElementById('prefix').onchange = enamerator.onChangePrefix;
+
 	document.getElementById('name_output').onscroll = enamerator.onNameScroll;
 
 	// get settings from fragment or defaults
@@ -26,16 +27,39 @@ enamerator.setup = function() {
 	var prefix = hashParams.prefix || enamerator.defaults.prefix;
 
 	document.getElementById('length_range_min').value = min;
-	enamerator.onChangeMin();
+	// only call handler if modified by has parameter so we don't
+	// set the hash if there wasn't one
+	if(hashParams.hasOwnProperty('min')) {
+		enamerator.onChangeMin();
+	}
 	document.getElementById('length_range_max').value = max;
-	enamerator.onChangeMax();
+	// only call handler if modified by has parameter so we don't
+	// set the hash if there wasn't one
+	if(hashParams.hasOwnProperty('max')) {
+		enamerator.onChangeMax();
+	}
 	enamerator.setRadioValue('sex', gender);
 	document.getElementById('prefix').value = prefix;
 
 	enamerator.constrainPrefixLength();
 	enamerator.decompress(enamerator.stats);
 	enamerator.addNamesWhileScrolled();
+	enamerator.setSettingsLink(false);
+};
+
+enamerator.onChangePrefix = function() {
+	enamerator.checkPrefixValidity();
 	enamerator.setSettingsLink();
+};
+
+enamerator.checkPrefixValidity = function() {
+	var pref = document.getElementById('prefix');
+	if(!pref.checkValidity()) {
+		// find longest prefix that matches
+		var val = pref.value;
+		var newVal = val.replace(/([A-z]*).*/, '$1');
+		pref.value = newVal;
+	}
 };
 
 enamerator.getCurrentSettings = function() {
@@ -47,7 +71,8 @@ enamerator.getCurrentSettings = function() {
 	};
 };
 
-enamerator.setSettingsLink = function() {
+enamerator.setSettingsLink = function(setFragment) {
+	if(setFragment === undefined) setFragment = true;
 	var settings = enamerator.getCurrentSettings();
 	var sarray = [];
 	for(var setting in settings) {
@@ -56,7 +81,9 @@ enamerator.setSettingsLink = function() {
 	var domain = 'http://enamerator.com';
 	var linkurl = domain + '#' + sarray.join('&');
 	document.getElementById('settings-link').href = linkurl;
-	window.location.hash = sarray.join('&');
+	if(setFragment) {
+		window.location.hash = sarray.join('&');
+	}
 };
 
 enamerator.getHashParams = function() {

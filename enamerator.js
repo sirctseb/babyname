@@ -127,7 +127,10 @@ enamerator.decompressFreq = function(freq) {
 };
 enamerator.letters = 'abcdefghijklmnopqrstuvwxyz';
 enamerator.constrainPrefixLength = function() {
-	document.getElementById('prefix').maxLength = enamerator.getInputInt(document.getElementById('length_range_max'));
+	var length = enamerator.getInputInt(document.getElementById('length_range_max'));
+	document.getElementById('prefix').maxLength = length;
+	// shorten prefix if it is currently longer
+	document.getElementById('prefix').value = document.getElementById('prefix').value.substr(0, length);
 };
 enamerator.onChangeMin = function() {
 	var min = enamerator.getInputInt(document.getElementById('length_range_min'));

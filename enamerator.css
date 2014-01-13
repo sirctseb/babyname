@@ -97,6 +97,16 @@ input[type='radio']+.settings_divider {
 	border-color: black;
 */
 }
+#favlist {
+	text-align: left;
+	padding: 1em;
+	position: absolute;
+	top: 30%;
+	left: 0;
+}
+#favlist>div {
+	padding-left: 1em;
+}
 .name {
 	padding: 2px;
 	position: relative;

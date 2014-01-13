@@ -75,7 +75,7 @@ input[type='radio']+.settings_divider {
 #share {
 	margin-left: 20px;
 	position:absolute;
-	left: 100%;
+	left: 0;
 	bottom: 0;
 	text-align: left;
 }

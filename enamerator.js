@@ -82,7 +82,7 @@ enamerator.setSettingsLink = function(setFragment) {
 	var linkurl = domain + '#' + sarray.join('&');
 	document.getElementById('settings-link').href = linkurl;
 	if(setFragment) {
-		window.location.hash = sarray.join('&');
+		location.replace('#' + sarray.join('&'));
 	}
 };
 

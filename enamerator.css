@@ -92,10 +92,10 @@ input[type='radio']+.settings_divider {
 	display: inline-block;
 }
 .name.m {
-	background-color: #EBFBFF;
+	color: #4257E3;
 }
 .name.f {
-	background-color: #FFEBFC;
+	color: #E3426F;
 }
 /* custom spacing to normalize share buttons */
 #fb-share {

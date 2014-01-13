@@ -86,6 +86,20 @@ input[type='radio']+.settings_divider {
 #settings {
 	font-size: 1.2em;
 }
+#copyright {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	color: #666666;
+	/* for border */
+/*    background-color: white;
+	border-radius: 3px 3px 0 0;
+	padding: 3px 3px 0 3px;
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: black;
+*/
+}
 .name {
 	padding: 2px;
 	position: relative;

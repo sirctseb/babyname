@@ -72,6 +72,9 @@ input[type='radio']+.settings_divider {
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
+#scroll-buffer {
+	display: none;
+}
 #share {
 	margin-left: 20px;
 	position:absolute;
@@ -164,6 +167,10 @@ input[type='radio']+.settings_divider {
 	#center {
 		width: 90%;
 		border: 1px solid black;
+	}
+	#scroll-buffer {
+		display: block;
+		height: 200px;
 	}
 	#share {
 		display: none;

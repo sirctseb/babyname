@@ -305,7 +305,7 @@ enamerator.addNameToList = function(name, sex) {
 	// set sex class
 	inner.className = sex + ' name';
 	// inner.style.left = enamerator.getRandomInt(0,100) + '%';
-	inner.style.left = (50*enamerator.getNormal()) + 50 + '%';
+	// inner.style.left = (5*enamerator.getNormal()) + 50 + '%';
 	inner.onclick = enamerator.onClickName;
 	document.getElementById('name_output').appendChild(element);
 };

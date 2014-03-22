@@ -1,17 +1,21 @@
+library('rjson')
 
 vowels <- c('a','e','i','o','u','y')
 consonants <- c('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','z')
 
-learn <- function() {
+learn <- function(file, limit = 0, weighted = TRUE) {
+	if(missing(file)) {
+		file <- 'names/yob2012.txt'
+	}
 	res <- list()
 	# get name list
-	namelist <- read.table('names/yob2012.txt', sep=',', header=FALSE)
+	namelist <- read.table(file, sep=',', header=FALSE)
 	names(namelist) <- c('name', 'gender', 'count')
 	namelist$name <- tolower(as.character(namelist$name))
-	namelist.f <- subset(namelist, gender == 'F')
-	namelist.m <- subset(namelist, gender == 'M')
-	res$ngram.f <- aggregate(namelist.f)
-	res$ngram.m <- aggregate(namelist.m)
+	namelist.f <- subset(namelist, gender == 'F' & count > limit)
+	namelist.m <- subset(namelist, gender == 'M' & count > limit)
+	res$ngram.f <- aggregate(namelist.f, weighted)
+	res$ngram.m <- aggregate(namelist.m, weighted)
 	res$ngram <- list()
 	res$ngram$gram <- res$ngram.m$gram + res$ngram.f$gram
 	for(l in letters) {
@@ -23,7 +27,7 @@ learn <- function() {
 	}
 	res
 }
-aggregate <- function(namelist) {
+aggregate <- function(namelist, weighted) {
 	# initialize unigram list
 	letterlist <- sample(0,26,rep=TRUE)
 	names(letterlist) <- letters
@@ -39,16 +43,21 @@ aggregate <- function(namelist) {
 	}
 	# get statistics
 	for(i in seq(namelist$name)) {
-		split = strsplit(namelist[i,1], '')[[1]]
+		if(weighted) {
+			weight <- namelist[i,3] / 100;
+		} else {
+			weight <- 1
+		}
+		split <- strsplit(namelist[i,1], '')[[1]]
 		# increment frequency of first letter
 		ngram$gram[[split[1]]] <- ngram$gram[[split[1]]] + 1
 		# increment frequency of letter based on previous unigram
 		ngram[[split[1]]]$gram[[split[2]]] <- ngram[[split[1]]]$gram[[split[2]]] + 1
 		for(j in 2:length(split)) {
 			if(j > 2) {
-				ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] + 1
+				ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$gram[[split[j]]] + weight
 				if(j == length(split) - 1) {
-					ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] + 1
+					ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] <- ngram[[split[j - 2]]][[split[j - 1]]]$last[[split[j]]] + weight
 				}
 			}
 		}

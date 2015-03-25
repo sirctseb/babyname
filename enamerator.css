@@ -133,7 +133,7 @@ input[type='radio']+.settings_divider {
 	width: 1em;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 443px) {
 	#content {
 		font-size: 1.1em;
 	}

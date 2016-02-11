@@ -163,7 +163,7 @@ enamerator.getInputInt = function(element) {
 	return parseInt(element.value, 10);
 };
 enamerator.isScrolledToBottom = function(element) {
-	var bufferAmount = document.documentElement.clientWidth <= 360 ? 200 : 10;
+	var bufferAmount = document.documentElement.clientWidth <= 443 ? 200 : 10;
 	return element.scrollTop + bufferAmount >= element.scrollHeight - element.clientHeight;
 };
 enamerator.addNamesWhileScrolled = function() {

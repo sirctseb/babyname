@@ -35,6 +35,7 @@ a.nostyle:visited {
 	margin-bottom: -20px;
 	margin-right: 10px;
 	width: 100px;
+	cursor: url(img/play-cursor.png), auto;
 }
 #header-text {
 	display: inline-block;
